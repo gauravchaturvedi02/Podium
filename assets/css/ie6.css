@@ -1,0 +1,10 @@
+#header h1 { padding-bottom: 0; }
+#header ul { padding-top: 20px; }
+#sidebar .tag { height: 0; }
+#header { background-position: 0 88px; }
+.rss { top: 88px; }
+#content .featured .text { height: 0; padding-bottom: 24px; }
+#content .featured-img .text p { height: 0; }
+#footer { height: 0; }
+#footer p { padding: 5px 0; }
+#sidebar ul { padding-left: 30px; }
