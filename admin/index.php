@@ -1,11 +1,15 @@
 <?php
 session_start();
-if(!isset($_SESSION['admin'])){
-    header('Location:login.php');    
+if(!isset($_SESSION['username'])){
+    header('Location:login_user.php');  
+    echo 'WELCOME'.$_SESSION['username'];
 }
 ?>
 
-<?php include('Config/setup.php');?>
+<?php
+include('Config/setup.php');
+
+?>
 <DOCTYPE html></DOCTYPE>
 <html>
     <head>
@@ -38,14 +42,18 @@ if(!isset($_SESSION['admin'])){
 			$id= 0;
 			switch($category)
 			{
-                                case "startup": $id = 1; break;
-				case "sci&tech": $id = 2; break;
+                                case "trending": $id = 1; break;
+				case "startup": $id = 2; break;
 				case "sports": $id = 3; break;
 				case "politic": $id = 4; break;
-				case "entertainment": $id = 5; break;
-                                case "cat6": $id = 6; break;
-                                case "cat7": $id = 7; break;
-                         
+				case "humour": $id = 5; break;
+                                case "news": $id = 6; break;
+                                case "bookreview": $id = 7; break;
+                                case "buisness": $id = 8; break;
+                                case "science&tech": $id = 9; break;
+                                case "questioned": $id = 10; break;
+                                case "religion": $id = 11; break;
+                                case "fiction": $id = 12; break;
 		
 				default: echo("Error!"); exit(); break;
 			}
@@ -98,14 +106,18 @@ if(!isset($_SESSION['admin'])){
 	                         <select name="category">
 		             
 		              <option value="">Select a category...</option>
+                              <option value="trending">Trending</option>
                               <option value="sci&tech">Science and Tech</option>
 		              <option value="startup">Start Ups</option>
 		              <option value="sports">Sports</option>
 		              <option value="politics">Politics</option>
-		              <option value="entertainment">Entertainment</option>
-                              <option value="cat6">Cat6</option>
-                              <option value="cat7">Cat7</option>
-		
+		              <option value="humour">Humour</option>
+                              <option value="news">News</option>
+                              <option value="bookreview">Book Review</option>
+                               <option value="buisness">Buisness</option>
+		               <option value="questioned">Questioned</option>
+                               <option value="religion">Religion</option>
+                               <option value="fiction">Fiction</option>
 	                                </select> 
                        </div>
                            <button type="submit" class="btn btn-default">Save</button>
@@ -116,7 +128,7 @@ if(!isset($_SESSION['admin'])){
                 </div>
             </div>
         </div>
-         <?php include('template/footer.php'); ?>
+       
     </body>
 </html>
        

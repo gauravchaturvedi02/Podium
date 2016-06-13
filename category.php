@@ -14,7 +14,7 @@ $cat_sql="SELECT article.ar_id,article.au_id,article.tagline,article.flag,articl
  if(mysqli_num_rows($cat_query)==0 ){
      echo "Sorry! NO post yet!!";
  }else{?>
-
+<title><?php echo $cat_r['label'];?></title>
 <h1 style="padding-top: 80px;font-size: 80px" ><strong><?php echo $cat_r['label'];?></strong></h1>
  
     
@@ -47,4 +47,4 @@ $cat_sql="SELECT article.ar_id,article.au_id,article.tagline,article.flag,articl
        
        }
             ?>
-</div>
+<?php include('template/footer.php');?>

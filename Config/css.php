@@ -8,7 +8,9 @@
      <link rel="stylesheet" href="C:\Users\Chatur\Desktop\jquery-ui-themes-1.11.4\themes\smoothness\jquer-ui.css">
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
      
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     
     
      <style>
@@ -90,10 +92,11 @@ a.hovertext {
 .my-container {
     position: relative;
     overflow: hidden;
+    height: 800px;
 }
 .my-container h1 {
-    padding: 200px;
-    position: relative;
+   padding:200px;
+    position:relative;
     z-index: 2;
 } 
 .my-container img {
@@ -101,7 +104,7 @@ a.hovertext {
     left: 0;
     top: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
     opacity: 0.6;
 }
 

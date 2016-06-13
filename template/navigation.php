@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
               
                   <ul class="nav navbar-nav">
                   <li><a href="index.php">Home</a>
