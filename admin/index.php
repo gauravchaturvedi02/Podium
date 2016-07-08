@@ -1,134 +1,96 @@
-<?php
-session_start();
-if(!isset($_SESSION['username'])){
-    header('Location:login_user.php');  
-    echo 'WELCOME'.$_SESSION['username'];
-}
-?>
-
-<?php
+<?php 
+include('Config/css.php'); 
+include('Config/js.php');
 include('Config/setup.php');
-
+include ('connect.php');
+include('Config/connection.php');
 ?>
-<DOCTYPE html></DOCTYPE>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <html>
     <head>
-        <title><?php echo 'adminPanel | JSS Podium' ;?></title>
-       <meta name="viewport" content="width=device-width, initial-scale=1"> 
-       <?php include('Config/css.php');  ?>
-       <?php include('Config/js.php');  ?>
+        <title>JSS Podium</title>
+       <meta name="viewport" content="width=device-width, initial-scale=1">
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+
+<script type="text/javascript" src="javascript.js"></script>
+<script type="text/javascript" src="assets/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="assets/js/jquery.cycle.all.min.js"></script>
+<script type="text/javascript" src="assets/js/scripts.js"></script>
+  <?php include('template/navigation.php');?>
     </head>
     <body>
-        <div id="wrap">
-          <?php include('template/navigation.php'); ?>
-                      <?php
-                    if(isset($_POST['submitted']) == 1){
-                        $title=  mysqli_real_escape_string($dbc, $_POST['title']);
-                        $content=  mysqli_real_escape_string($dbc, $_POST['content']);
-                        $au_name=  mysqli_real_escape_string($dbc, $_POST['au_name']);
-                        
-                         $tagline=  mysqli_real_escape_string($dbc, $_POST['tagline']);
-                        
-                        
-                        
-                        $category = $_POST['category'];
-                        if(empty($category)) 
-		{
-			$errorMessage = "<li>You forgot to select a category!</li>";
-		}
-                        else 
-		{
-			
-			$id= 0;
-			switch($category)
-			{
-                                case "trending": $id = 1; break;
-				case "startup": $id = 2; break;
-				case "sports": $id = 3; break;
-				case "politic": $id = 4; break;
-				case "humour": $id = 5; break;
-                                case "news": $id = 6; break;
-                                case "bookreview": $id = 7; break;
-                                case "buisness": $id = 8; break;
-                                case "science&tech": $id = 9; break;
-                                case "questioned": $id = 10; break;
-                                case "religion": $id = 11; break;
-                                case "fiction": $id = 12; break;
-		
-				default: echo("Error!"); exit(); break;
-			}
-	
-		}
-	                $file= $_FILES['image']['tmp_name'];
-                        $name = basename($_FILES['image']['name']);
-                        $dir='images';
-                        #$image = addslashes(file_get_contents($_FILES['image']['tmp_name'])); 
-                        if(move_uploaded_file($file, "../".$dir."/".$name)){
-                            echo 'file uploaded successfully.';
-                        }else{
-                            echo 'upload failed';
-                        }
-                        $im_name=$dir."/".$name ;
-        $q ="INSERT INTO article (title,content,au_name,date,id,im_name,tagline,time)"
-             . " VALUES ('$title','$content','$au_name',CURDATE(),'$id','$im_name','$tagline',CURTIME())";
-                        $r = mysqli_query($dbc,$q);
-                    
-                    if($r){ 
-                        $m = '<p>Article was added!!</p>';
-                        
-                    }
-                    else{
-                        $m= '<p>Article could not be loaded because '.mysqli_errno($dbc);
-                        $m.= '<p>'.$q.'</p>';
-                    }
-                    }
-                    ?>       
-                </div>
-                </div>
-                <div class="container">
-                     <h1>Admin Dashboard</h1>
-                   <?php if(isset($m)) {echo $m ; }?>
-                    <form action="index.php" method="post" enctype="multipart/form-data" role="form">
-                       <div class="form-group">
-                           <label for="title">Title:</label>
-                           <input class="form-control" type="text" name="title" id="title" placeholder="Article Title"> 
-                            <label for="tagline">Tagline:</label>
-                           <input class="form-control" type="text" name="tagline" id="tagline" placeholder="short description">
-                           <label for="content">Content:</label>
-                           <textarea class="form-control" name="content" id="content" rows="8">
-                           </textarea>
-                            <label for="au_name">Author:</label>
-                           <input class="form-control" type="text" name="au_name" id="au_name" placeholder="Eg.Gaurav Chaturvedi"> 
-                            
-                            <label for="image">Choose Image:</label>
-                            <input type="file" name="image" id="image" placeholder="choose ur imaage"><input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
-                         <label for='category'>Select the category</label><br>
-	                         <select name="category">
-		             
-		              <option value="">Select a category...</option>
-                              <option value="trending">Trending</option>
-                              <option value="sci&tech">Science and Tech</option>
-		              <option value="startup">Start Ups</option>
-		              <option value="sports">Sports</option>
-		              <option value="politics">Politics</option>
-		              <option value="humour">Humour</option>
-                              <option value="news">News</option>
-                              <option value="bookreview">Book Review</option>
-                               <option value="buisness">Buisness</option>
-		               <option value="questioned">Questioned</option>
-                               <option value="religion">Religion</option>
-                               <option value="fiction">Fiction</option>
-	                                </select> 
-                       </div>
-                           <button type="submit" class="btn btn-default">Save</button>
-                           <input type="hidden" name="submitted" value="1">
-                       </div>
-                        
-                    </form>
-                </div>
-            </div>
-        </div>
+         <div class="my-container2">
+        
+             <img  class="" src="images/pd (1).jpg">
+      </div>
        
+        <div id="body">
+ 
+    <div id="content">
+  <?php
+    
+ $q ="SELECT article.ar_id,article.au_id,article.tagline,article.flag,article.im_name,article.content,article.title,article.au_name,article.date,article.id,pages.label FROM article JOIN pages ON article.id=pages.id WHERE article.flag='1' ORDER BY article.date DESC LIMIT 12"; 
+  if($h_query = mysqli_query($dbc,$q))
+     $h_r =mysqli_fetch_assoc($h_query);
+      
+      
+     ?> <h1>Featured Post</h1>
+      <div class="break"></div>
+       
+      <div class="featured-img">
+        <div id="featured">
+          <div class="featured">
+               
+            <ul class="photo">
+              
+      <a href="article.php?ar_id=<?php echo $h_r['ar_id']; ?>"><img src="<?php echo $h_r['im_name']; ?>" alt="" /></a>
+                
+            </ul>
+              <ul class="text">
+              <li class="first">
+                  <h2><a href="article.php?ar_id=<?php echo $h_r['ar_id']; ?>"><?php echo $h_r['title']?></a></h2><br/><br/><br/><br/>
+                  <br/>
+                <p><?php echo $h_r['tagline'];?></p><br/>
+                <p><strong>Author: <?php echo $h_r['au_name'];?></strong></p>
+                <h3><a href="article.php?ar_id=<?php echo $h_r['ar_id']; ?>">Read Full Story</a> </h3>
+              </li>
+                 </ul>
+          </div>
+        </div>
+      </div>
+     
+      <h1>Latest Posts</h1>
+    <?php
+      do{ ?>
+       <div class="post"> 
+         <div class="row">
+      <div class="col-md-3"> 
+         <a href="article.php?ar_id=<?php echo $h_r['ar_id']; ?>"><img src="<?php echo $h_r['im_name']; ?>" alt=""/></a>
+        </div>
+          <div class="col-md-9">
+          <h1><a href="article.php?ar_id=<?php echo $h_r['ar_id']; ?>"><?php echo $h_r['title']?></a><br/></h1>
+         <p><?php echo $h_r['tagline']?></p>
+         <p class="date"><?php echo $h_r['date']?> &nbsp;&nbsp | Post by: <?php echo $h_r['au_name']?> | Category:<a href="category.php?id=<?php echo $h_r['id'];?>"><?php echo $h_r['label']?></a></p>
+                       </div></div>
+      <!-- end post -->
+      <div class="break"></div>
+        </div>
+      
+          <?php  
+    }while($h_r =mysqli_fetch_assoc($h_query));
+    ?>
+             
+    </div>
+     </div>
+        
+       <br/>
+    <br/><br/><br/><br/>
+    <br/><br/><br/>
+    
+    
     </body>
+   <?php include('template/footer.php');?>
 </html>
        
